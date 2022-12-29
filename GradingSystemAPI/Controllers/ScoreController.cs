@@ -38,20 +38,12 @@ namespace GradingSystemAPI.Controllers
             return Ok(entitiesToReturn);
         }
 
-        [HttpPost("{studentsId},{subjectId},{rating}")]
-        public async Task<IActionResult> Create([FromRoute] int studentsId, int subjectId, int rating)
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] ScoreDto dto)
         {
-
             try
             {
-                ScoreDto ScoreDto = new ScoreDto 
-                { 
-                    StudentsId = studentsId,
-                    SubjectId = subjectId,
-                    rating = rating
-                
-                };
-                var entityToCreate = await _ScoreHandler.Create(ScoreDto);
+                var entityToCreate = await _ScoreHandler.Create(dto);
                 return Ok(entityToCreate);
             }
             catch (Exception ex)

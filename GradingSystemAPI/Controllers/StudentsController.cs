@@ -1,10 +1,11 @@
 ﻿using GradingSystem.Application.Students.Dto;
 using GradingSystem.Application.Students.Handlers;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GradingSystemAPI.Controllers
 {
-
+   
     [Route("api/[controller]")]
     [ApiController]
     public class StudentsController : ControllerBase
@@ -37,13 +38,12 @@ namespace GradingSystemAPI.Controllers
             return Ok(entitiesToReturn);
         }
 
-        [HttpPost("{name}")]
-        public async Task<IActionResult> Create([FromRoute] string name)
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] StudentsDto dto)
         {
             try
             {
-                StudentsDto StudentsDto = new StudentsDto { Name = name };
-                var entityToCreate = await _StudentsHandler.Create(StudentsDto);
+                var entityToCreate = await _StudentsHandler.Create(dto);
                 return Ok(entityToCreate);
             }
             catch (Exception ex)

@@ -1,7 +1,7 @@
 using GradingSystem.Application;
 using GradingSystem.Infrastructure;
 
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+//var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -14,14 +14,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
-builder.Services.AddCors(options =>
+builder.Services.AddCors(p => p.AddPolicy("cors", builder =>
 {
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                      policy =>
-                      {
-                          policy.WithHeaders("*").WithOrigins("*").WithMethods("*");
-                      });
-});
+    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+}));
 
 
 var app = builder.Build();
@@ -37,7 +33,7 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
-app.UseCors(MyAllowSpecificOrigins);
+app.UseCors("cors");
 
 app.UseAuthorization();
 
