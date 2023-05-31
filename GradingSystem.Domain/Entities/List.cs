@@ -13,7 +13,7 @@ namespace GradingSystem.Domain.Entities
         public int daylistId { get; set; }
 
         public DateTime Created { get; set; }
-
+         
         [ForeignKey("daylistId")]
         public virtual DayList DayList { get; set; }
     }

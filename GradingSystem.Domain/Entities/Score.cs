@@ -1,4 +1,4 @@
-﻿using GradingSystem.Domain.Enums;
+﻿ using GradingSystem.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
